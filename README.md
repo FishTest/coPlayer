@@ -1,5 +1,11 @@
 sudo apt-get install mpd python-dev python-pip python-pygame
-sudo pip install python-mpd2 netifaces
+sudo pip install python-mpd2 netifaces mutagen
+
+cd ~
+git clone https://github.com/Adafruit/Adafruit_GPIO.git
+cd Adafruit_GPIO
+sudo python setup.py install
+cd ~
 
 sudo nano /etc/modprobe.d/raspi-blacklist.conf
 
