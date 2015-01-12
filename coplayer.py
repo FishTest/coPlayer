@@ -868,6 +868,7 @@ def dispMenu():
         elif menu[i][1] is 0:
             screen.blit(imgOff,(110,(i+1)*16 + 4))
     #update screen
+    
     pygame.display.update()
     #set shouldUpdate to false to avoid repeat screen refresh
     shouldUpdate = False
@@ -1102,9 +1103,9 @@ lock        = threading.Lock()
 print "loading font..."
 pygame.font.init()
 try:
-    fontTitle = pygame.font.Font("/home/pi/coplayer/SourceHanSansCN-Medium.otf",19)
-    fontMain  = pygame.font.Font("/home/pi/coplayer/SourceHanSansCN-Light.otf", 14)
-    fontSmall = pygame.font.Font("/home/pi/coplayer/DejaVuSansMono.ttf", 10)
+    fontTitle = pygame.font.Font("fonts/SourceHanSansCN-Medium.otf",19)
+    fontMain  = pygame.font.Font("fonts/SourceHanSansCN-Light.otf", 14)
+    fontSmall = pygame.font.Font("fonts/DejaVuSansMono.ttf", 10)
 except pygame.error, e:
     print e
     exit()
