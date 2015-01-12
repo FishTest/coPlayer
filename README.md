@@ -1,34 +1,18 @@
-LapsePiTouch
-============
+sudo apt-get install mpd python-dev python-pip python-pygame
+sudo pip install python-mpd2 netifaces
 
-Touchscreen Timelapse controller for Raspberry Pi and Adafruit PiTFT by [David Hunt](http://www.davidhunt.ie) 
+sudo nano /etc/modprobe.d/raspi-blacklist.conf
 
-Based on code by PaintYourDragon (Phil B) for Adafruit Industries
+#blacklist spi-bcm2708
+#blacklist i2c-bcm2708
+#blacklist snd-soc-pcm512x
+#blacklist snd-soc-wm8804
 
-Read more about this project at [Dave's Blog](http://www.davidhunt.ie/?p=3349)
+sudo nano /etc/modules
 
-Enjoy!
-
-![LapsePi Touch](http://www.davidhunt.ie/wp-content/uploads/2014/01/SZ0A4273-Edit.jpg)
-
-**Prerequisites:**
-
-You must have gone through the [Adafruit PiTFT setup instructions](http://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi).
-
-You must have gone through the [WiringPi-Python Setup instructions](https://github.com/WiringPi/WiringPi-Python).
-
-**Get repo:**
-    
-    git clone https://github.com/climberhunt/LapsePiTouch.git
-    
-    
-**Usage:**
-
-    cd LapsePiTouch
-
-    sudo python lapse.py
-
-
-Full details at: [Dave's Blog](http://www.davidhunt.ie/?p=3349)
-
-If you would like to donate to the Lapse Pi Touch project to keep it active you can do so via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Y3Y6NK98CZUZW)
+#snd-bcm2835
+i2c-dev
+snd_soc_bcm2708
+bcm2708_dmaengine
+snd_soc_pcm5102a
+snd_soc_hifiberry_dac
