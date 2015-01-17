@@ -238,7 +238,6 @@ def k_Main(b):
     elif b is k_right:
         setMPDStatus('next',True)
     elif b is k_middle:
-        initMenuTime()
         initMenu(menuMain,'系统设置')
     elif b is k_ok:
         setMPDStatus('toggle',True)
@@ -273,7 +272,6 @@ def k_PlayList(b):
         initMenuTime()
         setPage(1)
     elif b is k_middle:
-        initMenuTime()
         initMenu(menuMain,'系统设置')
     elif b is k_ok:
         initMenuTime()
@@ -281,7 +279,6 @@ def k_PlayList(b):
     elif b is k_cancel:
         screenMode = scr_Main
     elif b is k_exit:
-        initMenuTime()
         initMenu(menuExit,'退出系统')
         
          
@@ -290,7 +287,7 @@ def k_NetworkInfo(b):
     global screenMode,scr_Main,showMessage
     if showMessage:
         return
-    if b is k_ok or ok_cancel:
+    if b is k_ok or k_cancel:
         initMenuTime()
         initMenu(menuNetwork,'网络管理')
     elif b is k_exit:
@@ -324,6 +321,11 @@ def k_InputBox(b):
                 curKeyboardX = curKeyboardX + 1
         elif curPosX < maxKeys - 1:
             curPosX = curPosX + 1
+    elif b is k_middle:
+        dispInfoBox('正在获取Wifi列表，请等候！')
+        getWifiList()
+        showMessage = False
+        initMenu(wifiList,'Wifi列表')
     elif b is k_ok:
         curTyping = curTyping + getCurrentKey()
     elif b is k_cancel:
@@ -823,10 +825,10 @@ def dispWifiList():
     pygame.draw.rect(screen,(255,0,0),Rect((1,(curWifiListY) * 16 + 8),(3,8)))
     pygame.display.update()
     
-    
 # init menu cursor position m:menu t:title of menu
 def initMenu(m,t):
     global screenMode,scr_Menu,menu,menuTitle,menuExit,menuOffset,cursorPosition,shouldUpdate
+    initMenuTime()
     menu           = m
     menuTitle      = t
     menuOffset     = 0
@@ -929,6 +931,7 @@ def k_Menu(b):
         elif menu is menuMPDSettings or menuNetwork or menuExit:
             initMenu(menuMain,'系统设置')
         elif menu is menuAdpater or wifiList:
+            print menu
             initMenu(menuNetwork,'网络管理')
     elif b is k_exit:
         screenMode = scr_Main
