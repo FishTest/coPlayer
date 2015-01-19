@@ -66,6 +66,7 @@ Step 5:install system require
 sudo apt-get update
 sudo apt-get install mpd mpc python-dev python-pip python-smbus python-mpd python-netifaces python-mutagen
 sudo apt-get install samba samba-common-bin 
+sudo pip install python-mpd2
 
 git clone https://github.com/adafruit/Adafruit_Python_GPIO.git
 cd Adafruit_Python_GPIO
@@ -104,6 +105,7 @@ sudo service mpd start
 
 step 7:Samba Config
 sudo service samba stop
+sudo smbpasswd -a pi (add user pi then you should type new passowrd for twice)
 sudo nano /etc/samba/smb.conf
 use this settings
 
@@ -179,3 +181,9 @@ middle:return
 red   :input selected char
 black :backspace
 top   :confirm
+
+
+step last:oh no !!!!!!!!!!!!!!!!!!!!!!!!!!
+the simple:
+i've put all modified config file into config folder
+you can just stop the service and cp these file to there folder
