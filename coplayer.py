@@ -40,11 +40,14 @@ def initMcp():
 def initMPDConnection():
     global MPDClient,MPDClientW
     MPDClient = mpd.MPDClient() #use_unicode=True
+    MPDClient.timeout = 10
+    MPDClient.idletimeout = None
     MPDClient.connect("localhost", 6600)
     
 # Disconnect MPD socket
 def disconnectMPD():
     global MPDClient
+    MPDClient.close()
     MPDClient.disconnect()
 
 # Remove invalid string or AD string
@@ -102,6 +105,11 @@ def initEventTime():
 def initMenuTime():
     global lastMenuTime
     lastMenuTime = time.time()
+    
+# updatePlayList
+def updatePlaylist():
+    global screenMode
+    pass
     
 # Get playlist
 def getPlaylist():
@@ -206,9 +214,12 @@ def setMPDStatus(i,v):
                     theVolume = int(theVolume) - 2
             MPDClient.setvol(str(theVolume))
         elif i == 'update':
+            MPDClient.command_list_ok_begin()
             MPDClient.clear()
             MPDClient.update()
             MPDClient.findadd("any","")
+            MPDClient.play()
+            MPDClient.command_list_end()
         elif i == 'songid':
             if pageCount == 1:
                 MPDClient.play(str(v-1))
@@ -559,7 +570,7 @@ def dispInfoBox(info):
     
     for z in range(0,pInfo):
         lblInfo  = fontTitle.render(u(info)[z*maxChar:z*maxChar+maxChar], True, (255, 255, 255))
-        screen.blit(lblInfo,(5,z * 20 + 42))
+        screen.blit(lblInfo,(5,z * 20 + 12))
     pygame.display.update()
 
 # display the playlist 
@@ -952,8 +963,10 @@ def parseMenuFunction():
     if action is 'mpdSetting':
         initMenu(menuMPDSettings,'播放器设置')
     elif action is 'updatePlaylist':
-        os.system('./updateplaylist.sh')
-        setMPDStatus('play',1)
+        dispInfoBox('正在更新播放列表，请等候！')
+        setMPDStatus('update',1)
+        showMessage = False
+        screenMode = scr_Main
     elif action is 'networkSetting':
         getNetworkInfo()
         initMenu(menuNetwork,'网络管理')
